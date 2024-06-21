@@ -1,17 +1,23 @@
 module Instrumentation
   def add_param_context(*keys)
+    return unless Rails.env.production?
+
     keys.each do |key|
       honeycomb_metadata[key] = params[key]
     end
   end
 
   def add_context(metadata)
+    return unless Rails.env.production?
+
     metadata.each do |key, value|
       honeycomb_metadata[key] = value
     end
   end
 
   def append_to_honeycomb(request, controller_name)
+    return unless Rails.env.production?
+
     return if honeycomb_metadata.nil?
 
     honeycomb_metadata["trace.trace_id"] = request.request_id

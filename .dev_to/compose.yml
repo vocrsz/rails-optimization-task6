@@ -50,11 +50,16 @@ x-backend: &backend
       condition: service_healthy
     redis:
       condition: service_healthy
+  networks:
+    - default
 
 services:
   rails:
     <<: *backend
     command: bundle exec rails
+    networks:
+      - default
+      - sandbox_default
 
   web:
     <<: *backend
@@ -85,6 +90,8 @@ services:
     healthcheck:
       test: pg_isready -U postgres -h 127.0.0.1
       interval: 5s
+    networks:
+      - default
 
   redis:
     image: redis:6.2-alpine
@@ -97,6 +104,8 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
+    networks:
+      - default
 
   webpacker:
     <<: *app
@@ -113,6 +122,8 @@ services:
       <<: *env
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
       YARN_CACHE_FOLDER: /app/node_modules/.yarn-cache
+    networks:
+      - default
 
 volumes:
   bundle:
@@ -122,3 +133,7 @@ volumes:
   postgres:
   redis:
   packs-test:
+
+networks:
+  sandbox_default:
+    external: true

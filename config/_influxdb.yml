@@ -1,0 +1,12 @@
+development:
+  username: root
+  password: root
+
+test:
+  username: root
+  password: root
+  # database name
+  database: 'db'
+  # influxdb api endpoint
+  host: 'sandbox-influxdb-1'
+  port: 8082

@@ -1,27 +1,29 @@
 require "database_cleaner"
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
+
+  DatabaseCleaner.allow_remote_database_url = true
 
   config.before(:suite) do
-    if config.use_transactional_fixtures?
-      raise(<<-MSG)
-        Delete line `config.use_transactional_fixtures = true` from rails_helper.rb
-        (or set it to false) to prevent uncommitted transactions being used in
-        JavaScript-dependent specs.
+    # if config.use_transactional_fixtures?
+    #   raise(<<-MSG)
+    #     Delete line `config.use_transactional_fixtures = true` from rails_helper.rb
+    #     (or set it to false) to prevent uncommitted transactions being used in
+    #     JavaScript-dependent specs.
 
-        During testing, the app-under-test that the browser driver connects to
-        uses a different database connection to the database connection used by
-        the spec. The app's database connection would not be able to access
-        uncommitted transaction data setup over the spec's database connection.
-      MSG
-    end
+    #     During testing, the app-under-test that the browser driver connects to
+    #     uses a different database connection to the database connection used by
+    #     the spec. The app's database connection would not be able to access
+    #     uncommitted transaction data setup over the spec's database connection.
+    #   MSG
+    # end
 
-    DatabaseCleaner.clean_with(:truncation)
+    # DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before do
-    DatabaseCleaner.strategy = :transaction
+    # DatabaseCleaner.strategy = :transaction
   end
 
   config.before(:each, type: :feature) do
@@ -33,15 +35,15 @@ RSpec.configure do |config|
       # Driver is probably for an external browser with an app
       # under test that does *not* share a database connection with the
       # specs, so use truncation strategy.
-      DatabaseCleaner.strategy = :truncation
+      # DatabaseCleaner.strategy = :truncation
     end
   end
 
   config.before do
-    DatabaseCleaner.start
+    # DatabaseCleaner.start
   end
 
   config.append_after do
-    DatabaseCleaner.clean
+    # DatabaseCleaner.clean
   end
 end

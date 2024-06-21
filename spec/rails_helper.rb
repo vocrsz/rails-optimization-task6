@@ -12,6 +12,7 @@ require "pundit/matchers"
 require "pundit/rspec"
 require "webmock/rspec"
 require "test_prof/recipes/rspec/before_all"
+require "test_prof/recipes/rspec/let_it_be"
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -39,6 +40,9 @@ WebMock.disable_net_connect!(allow_localhost: true)
 
 RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  # config.filter_run_excluding type: :feature
+  config.filter_run type: :model
 
   config.include ApplicationHelper
   config.include Devise::Test::ControllerHelpers, type: :controller

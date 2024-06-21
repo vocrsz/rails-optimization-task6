@@ -50,7 +50,7 @@ gem "front_matter_parser", "~> 0.2"
 gem "gemoji", "~> 3.0.0"
 gem "gibbon", "~> 2.2"
 gem "google-api-client", "~> 0.27"
-gem "honeycomb-rails"
+gem "honeycomb-rails", require: false
 gem "html_truncator", "~> 0.4"
 gem "httparty", "~> 0.16"
 gem "inline_svg", "~> 1.3"
@@ -151,9 +151,14 @@ group :test do
   gem "sinatra", "~> 2.0"
   gem "stackprof", "~> 0.2", require: false, platforms: :ruby
   gem "stripe-ruby-mock", "~> 2.5", require: "stripe_mock"
-  gem "test-prof", "~> 0.7"
   gem "timecop", "~> 0.9"
   gem "webmock", "~> 3.5"
   gem "zonebie", "~> 0.6.1"
+
+  gem "influxer", "~> 1.2"
+  gem 'bootsnap', require: false
+  gem 'tty-command'
+  gem "tty-color"
+  gem "test-prof", "~> 1.0"
 end
 # rubocop:enable LineLength
